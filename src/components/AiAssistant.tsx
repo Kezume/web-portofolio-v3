@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, Bot, Sparkles, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import ReactMarkdown from 'react-markdown';
 
 interface ChatMessage {
   role: "user" | "model";
@@ -13,7 +14,7 @@ export default function AiAssistant() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "model",
-      content: "Hi! I'm Roihan's AI agent. Ask me anything about his backend expertise, projects, tech stack, or professional availability!"
+      content: "Hi! I'm Jarvis, Roihan's personal AI agent. Ask me anything about his backend expertise, projects, tech stack, or professional availability!"
     }
   ]);
   const [loading, setLoading] = useState(false);
@@ -100,7 +101,7 @@ export default function AiAssistant() {
                 </div>
                 <div>
                   <h3 className="font-sans font-medium text-sm text-zinc-100 flex items-center gap-1.5">
-                    Roihan AI Agent
+                    Jarvis (AI Agent)
                   </h3>
                   <p className="text-[11px] text-emerald-400 flex items-center gap-1 font-mono">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
@@ -133,11 +134,27 @@ export default function AiAssistant() {
                         : "bg-zinc-900 text-zinc-300 rounded-bl-none border border-zinc-800"
                     }`}
                   >
-                    {msg.content.split("\n").map((line, lIdx) => (
-                      <p key={lIdx} className={lIdx > 0 ? "mt-1.5" : ""}>
-                        {line}
-                      </p>
-                    ))}
+                    {msg.role === "user" ? (
+                      msg.content.split("\n").map((line, lIdx) => (
+                        <p key={lIdx} className={lIdx > 0 ? "mt-1.5 break-words" : "break-words"}>{line}</p>
+                      ))
+                    ) : (
+                      <div className="space-y-2 break-words">
+                        <ReactMarkdown 
+                          components={{
+                            p: ({node, ...props}: any) => <p className="leading-relaxed" {...props} />,
+                            a: ({node, ...props}: any) => <a className="text-blue-400 hover:underline break-all" {...props} />,
+                            ul: ({node, ...props}: any) => <ul className="list-disc pl-4 space-y-1" {...props} />,
+                            ol: ({node, ...props}: any) => <ol className="list-decimal pl-4 space-y-1" {...props} />,
+                            li: ({node, ...props}: any) => <li className="" {...props} />,
+                            strong: ({node, ...props}: any) => <strong className="font-semibold text-white" {...props} />,
+                            code: ({node, ...props}: any) => <code className="bg-zinc-800/60 px-1 py-0.5 rounded text-[10px] font-mono text-zinc-300" {...props} />
+                          }}
+                        >
+                          {String(msg.content)}
+                        </ReactMarkdown>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
