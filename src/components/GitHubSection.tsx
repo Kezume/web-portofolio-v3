@@ -225,7 +225,7 @@ export default function GitHubSection({ isLightMode, githubUrl, pinnedRepos }: {
           </div>
 
           {/* Grid canvas */}
-          <div className="relative min-h-[110px] overflow-x-auto pb-4">
+          <div className="-mx-6 px-6 sm:mx-0 sm:px-0 relative min-h-[110px] overflow-x-auto touch-pan-x pb-4 scrollbar-none">
             <div className="min-w-[700px] grid grid-flow-col grid-rows-7 gap-1.5 justify-start">
               {contributions.map((day, idx) => (
                 <div

@@ -916,17 +916,17 @@ export default function App() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: isScrolled ? 0 : 100, opacity: isScrolled ? 1 : 0 }}
         transition={{ duration: 0.4 }}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 glass px-6 py-3 rounded-full hidden md:flex items-center gap-6 shadow-2xl border border-zinc-800/60 backdrop-blur-md"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 glass px-4 md:px-6 py-2.5 md:py-3 rounded-full flex items-center gap-4 md:gap-6 shadow-2xl border border-zinc-800/60 backdrop-blur-md max-w-[90vw] overflow-x-auto scrollbar-none"
       >
-        <button onClick={() => scrollToSection("hero")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Home</button>
-        <button onClick={() => scrollToSection("about")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">About</button>
-        <button onClick={() => scrollToSection("skills")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Skills</button>
-        <button onClick={() => scrollToSection("experience")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Exp</button>
-        <button onClick={() => scrollToSection("projects")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Projects</button>
-        <button onClick={() => scrollToSection("architecture")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Arch</button>
-        <button onClick={() => scrollToSection("certifications")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Certs</button>
-        <button onClick={() => scrollToSection("blog")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Blog</button>
-        <button onClick={() => scrollToSection("contact")} className="text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer">Contact</button>
+        <button onClick={() => scrollToSection("hero")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Home</button>
+        <button onClick={() => scrollToSection("about")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">About</button>
+        <button onClick={() => scrollToSection("skills")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Skills</button>
+        <button onClick={() => scrollToSection("experience")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Exp</button>
+        <button onClick={() => scrollToSection("projects")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Projects</button>
+        <button onClick={() => scrollToSection("architecture")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Arch</button>
+        <button onClick={() => scrollToSection("certifications")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Certs</button>
+        <button onClick={() => scrollToSection("blog")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Blog</button>
+        <button onClick={() => scrollToSection("contact")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Contact</button>
       </motion.div>
 
       {/* CMS DASHBOARD OVERLAY */}
@@ -950,11 +950,11 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className={`w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-8 text-left scrollbar-thin shadow-2xl relative ${isLightMode ? "bg-white border border-zinc-200 text-zinc-900" : "glass bg-[#18181B]/95"}`}
+              className={`w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8 text-left scrollbar-thin shadow-2xl relative ${isLightMode ? "bg-white border border-zinc-200 text-zinc-900" : "glass bg-[#18181B]/95"}`}
             >
               <button 
                 onClick={() => setActiveDetailProject(null)}
-                className="absolute top-6 right-6 p-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1043,9 +1043,9 @@ export default function App() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className={`w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-8 text-left scrollbar-thin shadow-2xl relative ${isLightMode ? "bg-white border border-zinc-200 text-zinc-900" : "glass bg-[#18181B]/95"}`}
+              className={`w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8 text-left scrollbar-thin shadow-2xl relative ${isLightMode ? "bg-white border border-zinc-200 text-zinc-900" : "glass bg-[#18181B]/95"}`}
             >
-              <div className="absolute top-6 right-6 flex gap-2">
+              <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex gap-2">
                 <button 
                   onClick={() => {
                     const shareUrl = `${window.location.origin}${window.location.pathname}?blog=${activeReadBlog.slug}`;
@@ -1074,7 +1074,7 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="flex justify-between items-center text-xs font-mono text-zinc-500 mb-4 pr-24">
+              <div className="flex justify-between items-center text-xs font-mono text-zinc-500 mb-4 pr-20 sm:pr-24">
                 <span>{activeReadBlog.publishDate}</span>
                 <span>{activeReadBlog.readingTime}</span>
               </div>

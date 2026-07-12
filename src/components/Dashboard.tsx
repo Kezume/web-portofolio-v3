@@ -661,7 +661,6 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
             <h1 className="text-sm font-sans font-bold text-zinc-100 leading-none">
               Roihan Workspace <span className="ml-1 px-1.5 py-0.5 rounded-full text-[9px] font-mono bg-blue-500/10 border border-blue-500/20 text-blue-400">ADMIN</span>
             </h1>
-            <p className="text-[10px] text-zinc-600 font-mono mt-0.5">Firebase Firestore · Cloud Sync Active</p>
           </div>
         </div>
 
@@ -689,15 +688,15 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
       </header>
 
       {/* Body */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
 
         {/* Sidebar */}
-        <aside className="w-56 border-r border-zinc-800/60 bg-zinc-900/30 px-3 py-4 shrink-0 flex flex-col justify-between overflow-y-auto">
-          <nav className="space-y-5">
+        <aside className="w-full md:w-56 border-b md:border-b-0 md:border-r border-zinc-800/60 bg-zinc-900/30 px-3 py-3 md:py-4 shrink-0 flex md:flex-col justify-between overflow-x-auto md:overflow-y-auto scrollbar-none md:scrollbar-thin">
+          <nav className="flex md:flex-col gap-6 md:gap-0 md:space-y-5 min-w-max md:min-w-0">
             {NAV_SECTIONS.map((section) => (
-              <div key={section.label}>
-                <p className="text-[9px] font-mono font-semibold text-zinc-600 px-2 pb-1.5 uppercase tracking-widest">{section.label}</p>
-                <div className="space-y-0.5">
+              <div key={section.label} className="flex md:block items-center md:items-stretch gap-2 md:gap-0">
+                <p className="hidden md:block text-[9px] font-mono font-semibold text-zinc-600 px-2 pb-1.5 uppercase tracking-widest">{section.label}</p>
+                <div className="flex md:block gap-2 md:gap-0 md:space-y-0.5">
                   {section.items.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -705,13 +704,13 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
                       <button
                         key={item.id}
                         onClick={() => setActiveTab(item.id)}
-                        className={`w-full px-3 py-2 rounded-xl text-xs font-sans font-medium flex items-center justify-between transition-all cursor-pointer ${
+                        className={`w-auto md:w-full px-3 py-2 rounded-xl text-xs font-sans font-medium flex items-center justify-between transition-all cursor-pointer whitespace-nowrap md:whitespace-normal gap-2 ${
                           isActive ? "bg-blue-600 text-white shadow-sm shadow-blue-600/20" : "hover:bg-zinc-800/60 text-zinc-400 hover:text-zinc-200"
                         }`}
                       >
                         <span className="flex items-center gap-2.5">
-                          <Icon className="h-3.5 w-3.5" />
-                          {item.label}
+                          <Icon className="h-3.5 w-3.5 shrink-0" />
+                          <span>{item.label}</span>
                         </span>
                         {"badge" in item && item.badge! > 0 && (
                           <span className="h-4 min-w-4 px-1 rounded-full bg-red-500 text-[9px] text-white font-mono flex items-center justify-center">
@@ -726,21 +725,16 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
             ))}
           </nav>
 
-          <div className="p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/60 text-center">
-            <div className="flex items-center justify-center gap-1.5 text-[10px] font-mono text-zinc-600">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Firestore Cloud · Active
-            </div>
-          </div>
+
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 overflow-y-auto">
+        <main className="flex-1 p-4 md:p-6 overflow-y-auto overflow-x-hidden min-w-0">
 
           {/* ─── TAB: Analytics ──────────────────────────────────────────── */}
           {activeTab === "analytics" && (
             <div className="space-y-6 max-w-6xl">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <div className="flex items-center gap-3">
                   <h2 className="text-lg font-sans font-bold text-zinc-100">Portfolio Engagement Insights</h2>
@@ -922,7 +916,7 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
           {/* ─── TAB: Projects ───────────────────────────────────────────── */}
           {activeTab === "projects" && (
             <div className="space-y-5 max-w-6xl">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h2 className="text-lg font-sans font-bold text-zinc-100">Projects ({projects.length})</h2>
                   <p className="text-xs text-zinc-500 mt-0.5">Manage project entries shown on the portfolio.</p>
@@ -962,7 +956,7 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
           {/* ─── TAB: Blogs ──────────────────────────────────────────────── */}
           {activeTab === "blogs" && (
             <div className="space-y-5 max-w-5xl">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h2 className="text-lg font-sans font-bold text-zinc-100">Blog Posts ({blogs.length})</h2>
                   <p className="text-xs text-zinc-500 mt-0.5">Publish engineering insights and technical deep dives.</p>
@@ -1000,7 +994,7 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
             <div className="space-y-10 max-w-5xl">
               {/* Skills */}
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <h2 className="text-base font-sans font-bold text-zinc-100">Tech Skills ({skills.length})</h2>
                     <p className="text-xs text-zinc-500 mt-0.5">Manage skill categories and proficiency levels.</p>
@@ -1035,7 +1029,7 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
 
               {/* Experiences */}
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <h2 className="text-base font-sans font-bold text-zinc-100">Career Timeline ({experiences.length})</h2>
                     <p className="text-xs text-zinc-500 mt-0.5">Manage job positions, companies, and durations.</p>
@@ -1071,7 +1065,7 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
             <div className="space-y-10 max-w-5xl">
               {/* Certificates */}
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <h2 className="text-base font-sans font-bold text-zinc-100">Certifications ({certificates.length})</h2>
                     <p className="text-xs text-zinc-500 mt-0.5">Manage professional badges and credentials.</p>
@@ -1098,7 +1092,7 @@ export default function Dashboard({ onClose, portfolioData, refetchPortfolio }: 
 
               {/* Testimonials */}
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <h2 className="text-base font-sans font-bold text-zinc-100">Testimonials ({testimonials.length})</h2>
                     <p className="text-xs text-zinc-500 mt-0.5">Manage client references and star ratings.</p>

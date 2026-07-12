@@ -112,8 +112,9 @@ export default function BackendArchitecture({ isLightMode }: { isLightMode?: boo
         </div>
 
         {/* Infographic Map */}
-        <div className={`relative p-8 rounded-3xl backdrop-blur-sm mb-16 overflow-x-auto ${isLightMode ? "bg-white border border-zinc-200 shadow-sm" : "glass"}`}>
-          <div className="min-w-[900px] flex items-center justify-between gap-4 py-8 relative">
+        <div className={`relative p-6 sm:p-8 rounded-3xl backdrop-blur-sm mb-16 ${isLightMode ? "bg-white border border-zinc-200 shadow-sm" : "glass"}`}>
+          <div className="-mx-6 px-6 sm:mx-0 sm:px-0 overflow-x-auto touch-pan-x scrollbar-none">
+            <div className="min-w-[900px] flex items-center justify-between gap-4 py-8 relative">
             {/* Connecting flow line */}
             <div className={`absolute top-1/2 left-4 right-4 h-0.5 -translate-y-1/2 -z-10 ${isLightMode ? "bg-zinc-200" : "bg-zinc-800"}`}>
               <motion.div 
@@ -150,6 +151,7 @@ export default function BackendArchitecture({ isLightMode }: { isLightMode?: boo
                 </div>
               );
             })}
+            </div>
           </div>
 
           {/* Active Step Description Panel */}
