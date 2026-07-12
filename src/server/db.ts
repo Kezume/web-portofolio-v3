@@ -57,36 +57,26 @@ const DEFAULT_DB: DatabaseSchema = {
 const DOC_ID = "main_data";
 const COLLECTION_NAME = "portfolio";
 
-// ===================================================================
-// In-memory cache to avoid hitting Firestore on every request.
-// Cache is invalidated/updated whenever writeDB() is called.
-// ===================================================================
-let _cache: DatabaseSchema | null = null;
-
 export async function readDB(): Promise<DatabaseSchema> {
-  if (_cache) return _cache;
   try {
     const docRef = db.collection(COLLECTION_NAME).doc(DOC_ID);
     const docSnap = await docRef.get();
     if (docSnap.exists) {
-      _cache = docSnap.data() as DatabaseSchema;
-      return _cache;
+      return docSnap.data() as DatabaseSchema;
     } else {
       // First-time: seed Firestore with default data
       await docRef.set(DEFAULT_DB);
-      _cache = DEFAULT_DB;
-      return _cache;
+      return DEFAULT_DB;
     }
   } catch (error) {
     console.error("Error reading from Firestore:", error);
-    return _cache ?? DEFAULT_DB;
+    return DEFAULT_DB;
   }
 }
 
 export async function writeDB(data: DatabaseSchema) {
   const docRef = db.collection(COLLECTION_NAME).doc(DOC_ID);
   await docRef.set(data);
-  _cache = data; // keep cache in sync
 }
 
 // Analytics — reads from the dedicated visitorMetrics collection
