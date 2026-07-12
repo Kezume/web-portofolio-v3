@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { 
   Terminal, ExternalLink, Github, Linkedin, Mail, BookOpen, Award, FileText, Send, 
   Moon, Sun, Briefcase, Code2, Database, Cpu, Globe, Calendar, ArrowUp, Menu, X, 
-  Search, MessageSquare, Settings, Flame, ChevronRight, CheckCircle 
+  Search, MessageSquare, Settings, Flame, ChevronRight, CheckCircle, Share2 
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -97,6 +97,20 @@ export default function App() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Check URL params to auto-open specific blog
+  useEffect(() => {
+    if (portfolio?.blogs) {
+      const params = new URLSearchParams(window.location.search);
+      const blogSlug = params.get("blog");
+      if (blogSlug) {
+        const foundBlog = portfolio.blogs.find((b: Blog) => b.slug === blogSlug);
+        if (foundBlog) {
+          setActiveReadBlog(foundBlog);
+        }
+      }
+    }
+  }, [portfolio]);
 
   // Animated Typing logic
   useEffect(() => {
@@ -1031,14 +1045,36 @@ export default function App() {
               exit={{ opacity: 0, scale: 0.95 }}
               className={`w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-3xl p-8 text-left scrollbar-thin shadow-2xl relative ${isLightMode ? "bg-white border border-zinc-200 text-zinc-900" : "glass bg-[#18181B]/95"}`}
             >
-              <button 
-                onClick={() => setActiveReadBlog(null)}
-                className="absolute top-6 right-6 p-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="absolute top-6 right-6 flex gap-2">
+                <button 
+                  onClick={() => {
+                    const shareUrl = `${window.location.origin}${window.location.pathname}?blog=${activeReadBlog.slug}`;
+                    if (navigator.share) {
+                      navigator.share({
+                        title: activeReadBlog.title,
+                        text: `Check out this article: ${activeReadBlog.title}`,
+                        url: shareUrl,
+                      }).catch(err => console.error("Error sharing", err));
+                    } else {
+                      navigator.clipboard.writeText(shareUrl);
+                      alert("Link copied to clipboard!");
+                    }
+                  }}
+                  className="p-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
+                  title="Share Article"
+                >
+                  <Share2 className="h-4 w-4" />
+                </button>
+                <button 
+                  onClick={() => setActiveReadBlog(null)}
+                  className="p-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-100 transition-colors cursor-pointer"
+                  title="Close Article"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
 
-              <div className="flex justify-between items-center text-xs font-mono text-zinc-500 mb-4 pr-10">
+              <div className="flex justify-between items-center text-xs font-mono text-zinc-500 mb-4 pr-24">
                 <span>{activeReadBlog.publishDate}</span>
                 <span>{activeReadBlog.readingTime}</span>
               </div>
