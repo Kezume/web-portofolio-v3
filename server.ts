@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
-import { readDB, writeDB, logVisitor, getAnalytics, clearAnalytics } from "./src/server/db";
+import { readDB, writeDB, logVisitor, getAnalytics, clearAnalytics } from "./src/server/db.js";
 import { GoogleGenAI } from "@google/genai";
 import multer from "multer";
-import { uploadImageToCloudinary } from "./src/server/cloudinary";
+import { uploadImageToCloudinary } from "./src/server/cloudinary.js";
 import dotenv from "dotenv";
 
 dotenv.config();

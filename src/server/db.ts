@@ -1,9 +1,9 @@
-import { db } from "./firebase";
+import { db } from "./firebase.js";
 import {
   Profile, Skill, Experience, Project, Certificate,
   Blog, Testimonial, Message, SocialLink, Setting,
   VisitorMetric, AnalyticsSummary
-} from "../types";
+} from "../types.js";
 
 interface DatabaseSchema {
   profile: Profile;
