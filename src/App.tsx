@@ -916,7 +916,7 @@ export default function App() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: isScrolled ? 0 : 100, opacity: isScrolled ? 1 : 0 }}
         transition={{ duration: 0.4 }}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 glass px-4 md:px-6 py-2.5 md:py-3 rounded-full flex items-center gap-4 md:gap-6 shadow-2xl border border-zinc-800/60 backdrop-blur-md max-w-[90vw] overflow-x-auto scrollbar-none"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 glass px-4 md:px-6 py-2.5 md:py-3 rounded-full flex items-center gap-4 md:gap-6 shadow-2xl border border-zinc-800/60 backdrop-blur-md max-w-[calc(100vw-11rem)] md:max-w-[90vw] overflow-x-auto scrollbar-none"
       >
         <button onClick={() => scrollToSection("hero")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">Home</button>
         <button onClick={() => scrollToSection("about")} className="shrink-0 text-[10px] md:text-xs font-mono text-zinc-400 hover:text-white transition-colors cursor-pointer whitespace-nowrap">About</button>
