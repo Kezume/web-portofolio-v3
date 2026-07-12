@@ -1,6 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
-import { createServer as createViteServer } from "vite";
 import { readDB, writeDB, logVisitor, getAnalytics, clearAnalytics } from "./src/server/db";
 import { GoogleGenAI } from "@google/genai";
 import multer from "multer";
@@ -670,6 +669,7 @@ app.delete("/api/admin/analytics/clear", requireAdmin, async (req: Request, res:
 
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",

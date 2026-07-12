@@ -25,6 +25,7 @@ export default function App() {
   const [isLightMode, setIsLightMode] = useState(false);
   const [isCmsOpen, setIsCmsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   // Filter & Search States
   const [projectSearch, setProjectSearch] = useState("");
@@ -73,9 +74,13 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setPortfolio(data);
+      } else {
+        console.error("API returned status:", res.status);
+        setApiError(`Server error (${res.status}). Please check Vercel Logs.`);
       }
     } catch (err) {
       console.error("Failed to sync portfolio database:", err);
+      setApiError("Network error. Check console for details.");
     } finally {
       setLoading(false);
     }
@@ -205,6 +210,18 @@ export default function App() {
       return <p key={idx} className="text-xs font-sans text-zinc-400 leading-relaxed mt-2">{line}</p>;
     });
   };
+
+  if (apiError && !portfolio) {
+    return (
+      <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-center font-sans px-6">
+        <div className="text-center space-y-4">
+          <div className="h-10 w-10 border-2 border-red-500 rounded-full flex items-center justify-center text-red-500 mx-auto">!</div>
+          <p className="text-red-400 text-sm">{apiError}</p>
+          <p className="text-zinc-500 text-xs">If you are on Vercel, check the Serverless Function logs (Functions tab).</p>
+        </div>
+      </div>
+    );
+  }
 
   if (loading || !portfolio) {
     return (
